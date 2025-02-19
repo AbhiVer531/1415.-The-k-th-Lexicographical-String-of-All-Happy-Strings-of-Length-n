@@ -1,0 +1,22 @@
+import math
+
+class Solution:
+    def getHappyString(self, n: int, k: int) -> str:
+        valid = 3  
+        for i in range(n - 1):
+            valid *= 2          
+        if k > valid:
+            return ""
+        startingLetterIndex = (k - 1) // (valid // 3)  
+        startingLetter = chr(ord('a') + startingLetterIndex) 
+        happy_string = startingLetter
+        remaining_k = k - (startingLetterIndex * (valid // 3))  
+        valid //= 3 
+        for i in range(n - 1):
+            valid //= 2  
+            choices = ['a', 'b', 'c']
+            choices.remove(happy_string[-1]) 
+            nextLetterIndex = (remaining_k - 1) // valid  
+            happy_string += choices[nextLetterIndex]  
+            remaining_k -= nextLetterIndex * valid
+        return happy_string

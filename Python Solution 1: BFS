@@ -1,0 +1,15 @@
+import math
+from itertools import product
+class Solution:
+    def getHappyString(self, n: int, k: int) -> str:
+        # Helper function to generate all happy strings
+        def generate_happy_strings(curr, remaining):
+            if remaining == 0:
+                result.append(curr)
+                return
+            for ch in "abc":
+                if not curr or curr[-1] != ch:
+                    generate_happy_strings(curr + ch, remaining - 1)
+        result = []
+        generate_happy_strings("", n)        
+        return result[k - 1] if k <= len(result) else ""
